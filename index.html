@@ -950,6 +950,12 @@
     .live-dot { width: 9px; height: 9px; border-radius: 50%; background: #cbd5e1; flex-shrink: 0; }
     .live-dot.loading { background: var(--accent-3); animation: liveBlink 1s infinite; }
     .live-dot.ok { background: var(--accent-1); }
+    .plan-note, .project-asof { color: var(--text-muted); font-size: 0.8rem; margin: 0.6rem 0 1rem; }
+    .project-status-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0.6rem; margin-top: 0.8rem; }
+    .project-status-grid dt { font-size: 0.72rem; color: #166534; font-weight: 700; }
+    .project-status-grid dd { margin: 0.2rem 0 0; font-size: 0.82rem; white-space: pre-line; overflow-wrap: anywhere; }
+    @media(max-width:600px) { .project-status-grid { grid-template-columns: 1fr; } }
+    .data-notice { color: #92400e; background: #fffbeb; padding: 0.7rem; font-size: 0.85rem; grid-column: 1 / -1; }
     .live-dot.error { background: #dc2626; }
     @keyframes liveBlink { 50% { opacity: 0.35; } }
     .live-spacer { flex: 1; }
@@ -998,7 +1004,9 @@
       margin-bottom: 2rem;
       text-align: center;
     }
-  </style>
+  /* Academic collaboration progress, reviewed 2026-10-28 */
+.academic-story{font-size:.86rem;line-height:1.75;color:#334155;margin-bottom:18px}.academic-story h4,.academic-story p{margin:0}.academic-story-lead{border-left:3px solid #007ac3;background:#f0f7fc;padding:16px 18px;border-radius:0 8px 8px 0}.academic-story-kicker{display:block;font-size:.72rem;color:#0072b8;font-weight:700;margin-bottom:5px}.academic-story-lead h4{font-size:1.12rem;line-height:1.5;color:#123750;margin-bottom:9px;letter-spacing:-.3px}.academic-story-heading{font-size:.88rem;color:#18394e;margin:20px 0 12px!important}.academic-story-timeline{list-style:none;padding:0;margin:0;display:grid;gap:0}.academic-story-timeline li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px;padding:0 0 16px;position:relative}.academic-story-date{font-size:.74rem;font-weight:700;color:#52718c;padding-top:1px}.academic-story-timeline li>div{border-left:2px solid #d9e7f1;padding-left:14px;position:relative}.academic-story-timeline li>div:before{content:'';position:absolute;left:-5px;top:7px;width:8px;height:8px;background:#5d9cc8;border:2px solid #fff;border-radius:50%}.academic-story-timeline b{display:block;color:#1d3e56;font-size:.85rem;line-height:1.6}.academic-story-timeline p{font-size:.79rem;color:#526578;margin-top:4px}.academic-story-achieved>div{border-left-color:#87c6bc!important}.academic-story-achieved>div:before{background:#118579!important}.academic-story-achieved b{color:#08786a}.academic-story-changes{border:1px solid #e1e8ef;border-radius:8px;padding:0 13px}.academic-story-changes>div{padding:10px 0;border-bottom:1px solid #e8edf2}.academic-story-changes>div:last-child{border-bottom:0}.academic-story-changes span{display:block;font-size:.71rem;color:#627589;font-weight:700;margin-bottom:3px}.academic-story-changes p{font-size:.79rem}.academic-story-changes b{font-weight:600;color:#1a4d71}.academic-story-next{margin-top:16px;padding:13px 15px;background:#eaf6f3;border:1px solid #cfe7df;border-radius:8px}.academic-story-next>b{color:#146657;font-size:.81rem}.academic-story-next p{font-size:.79rem;color:#3c625c;margin-top:5px}.academic-story-sources{font-size:.69rem;color:#6b7d8d;margin-top:12px!important;line-height:1.7}.academic-story-sources a{color:#537894}.academic-representatives{display:grid;gap:7px;font-size:.81rem;margin-top:12px}.academic-story-button{display:inline-block;background:#007ac3;color:white!important;border-radius:7px;padding:10px 16px;text-decoration:none!important;font-weight:700;font-size:.85rem}@media(max-width:600px){.academic-story-timeline li{grid-template-columns:1fr;gap:5px;padding-bottom:18px}.academic-story-date{padding-left:14px}.academic-story-lead{padding:14px}.academic-story-lead h4{font-size:1.05rem}}
+</style>
 </head>
 <body>
 
@@ -1078,6 +1086,7 @@
     <div id="tab-roadmap" class="tab-content">
       <div class="glass-card">
         <h3 class="section-title">📅 중장기 AI 전환 로드맵 (2026 ~ 2028)</h3>
+        <p id="roadmap-plan-note" class="plan-note"></p>
         <div class="roadmap-timeline" id="roadmap-timeline-container">
           <!-- Generated Dynamically by JS -->
         </div>
@@ -1100,7 +1109,7 @@
           </div>
 
           <!-- AI 오픈랩 실증 적격 선정 과제 (7월 선정 내역) -->
-          <h4 style="font-size:0.9rem; font-weight:700; margin-top:1.5rem; margin-bottom:0.5rem; color:var(--accent-1);">🏆 AI 오픈랩 실증 적격 선정 과제 (7월 선정)</h4>
+          <h4 style="font-size:0.9rem; font-weight:700; margin-top:1.5rem; margin-bottom:0.5rem; color:var(--accent-1);">🏆 AI 오픈랩 선정과제 및 추진현황</h4>
           <div style="display:flex; flex-direction:column; gap:0.8rem; margin-bottom:1.5rem;" id="openlab-selected-container">
             <!-- Generated Dynamically by JS -->
           </div>
@@ -1111,16 +1120,24 @@
           </ul>
         </div>
 
-        <!-- Academic Partnerships -->
-        <div class="glass-card">
-          <h3 class="detail-section-title" style="display:flex;align-items:center;gap:0.6rem;">🏫 대학·연구기관 직접 협력 파트너십 <a href="#" onclick="openUniversityDashboard(event)" style="text-decoration: none;" title="대학협력회의자료 v2 열기">🔗</a></h3>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.2rem;">
-            공단 사업 특성과 결합이 유망한 AI 연구분야를 중심으로 직접 맞춤형 매칭 및 R&D를 도모합니다.
-          </p>
-          <div class="univ-grid" id="univ-partnerships-container">
-            <!-- Generated Dynamically by JS -->
-          </div>
-        </div>
+<div class="glass-card" id="academic-progress-card"><h3 class="detail-section-title">🏫 학계협력 · 추진경과와 실행방향</h3><div id="academic-progress-live"><section class="academic-story" aria-label="학계협력 추진경과">
+  <div class="academic-story-lead"><span class="academic-story-kicker">일하는 방식의 변화</span><h4>기다리는 협력에서,<br>먼저 찾아가는 기술협력으로</h4><p>자체 확보가 어려운 AI 전문기술을 찾아 공단이 먼저 협력을 제안했습니다. 연구진의 기술과 공단의 현장·데이터·운영경험을 결합해 공동연구와 국가 R&D로 이어지는 협력 경로를 만들고 있습니다.</p></div>
+  <h4 class="academic-story-heading">학계협력 추진경과</h4>
+  <ol class="academic-story-timeline">
+    <li><span class="academic-story-date">2026.3.25.</span><div><b>전국 대학·산학협력단 290개소에 직접 제안</b><p>AI 연구분야와 공단 사업의 접점을 분석하고, 공단 인프라 기반 맞춤형 소개자료와 협력 제안서를 발송했습니다.</p></div></li>
+    <li><span class="academic-story-date">2026.4월</span><div><b>9개 대학·교수 15명 방문 협의</b><p>로봇·모빌리티, 영상 AI, 시설관리 등 적용 가능 기술을 탐색하고 실증·공동연구·R&D 참여 방향을 논의했습니다.</p></div></li>
+    <li><span class="academic-story-date">2026.7~9월</span><div><b>협력 논의를 실제 공모·기획으로 연결</b><p>경희대 순찰로봇은 미선정, 동국대·한양대 일부 기획은 미지원으로 종료됐습니다. 공모 전 공동기획과 역할분담을 준비할 필요를 확인했습니다.</p></div></li>
+    <li class="academic-story-achieved"><span class="academic-story-date">2026.9.30.</span><div><b>한양대 제설로봇 국가 R&D 최종 선정</b><p>폭설 대응 반자율주행 제설로봇 개발·실증 과제 선정. 국비 연구비 9억원은 전체 연구과제 규모이며, 현장 실증은 향후 추진 단계입니다.</p></div></li>
+  </ol>
+  <h4 class="academic-story-heading">교류를 넘어 과제 중심의 협력으로</h4>
+  <div class="academic-story-changes">
+    <div><span>협력의 출발점</span><p>학계 보유기술 탐색 <b>→ 공단 현장문제와 맞춤과제 발굴</b></p></div>
+    <div><span>협력대상 선정</span><p>회신·면담 중심 <b>→ 전문성·R&D 경험에 따른 연구진 선별</b></p></div>
+    <div><span>R&D 준비방식</span><p>공모 발생 후 대응 <b>→ 공모 전 개발내용·실증범위·역할 공동기획</b></p></div>
+  </div>
+  <div class="academic-story-next"><b>현재 이어갈 일 · 10.28. 기준</b><p>선정된 제설로봇의 실증 후보지와 운영자료를 구체화하고, 한양대 MOU의 협력범위·역할·일정을 협의합니다. 분야별 대표교수와는 현장수요에 맞는 후속과제를 발굴해 공동기획·검증으로 연결합니다.</p></div>
+  <p class="academic-story-sources">근거: 9.23. 중장기전략 · 학계협력 / 10.26. 이사회 보고 · 협력방식 전환<br>선정·협약 현황은 10.1. 결과보고와 10.28. 협약계획안으로 보완했습니다.</p>
+</section></div><a class="academic-story-button" href="university.html" onclick="openUniversityDashboard(event)">학계협력 실행 대시보드 열기 →</a><details style="margin-top:16px"><summary style="font-size:.8rem;cursor:pointer;color:#536b80">5개 기술분야 대표교수 보기</summary><div class="academic-representatives"><div>영상 AI·컴퓨터비전　KAIST 김승룡</div><div>로봇·자율시스템　한양대 강창묵</div><div>AIoT·엣지 AI　서울대 이창건</div><div>AI 학습데이터·신뢰성　연세대 김지응</div><div>지능형 에이전트　동국대 성연식</div></div></details><details style="margin-top:13px"><summary style="font-size:.8rem;cursor:pointer;color:#536b80">기존 시트의 대학별 파트너십 참고</summary><div class="univ-grid" id="univ-partnerships-container" style="margin-top:12px"></div></details></div>
       </div>
     </div>
 
@@ -1256,7 +1273,7 @@
 
       <!-- 행정안전부 공공 AI역량 교육과정 진행 현황 섹션 -->
       <div class="glass-card" style="margin-top: 2rem;">
-        <h3 class="detail-section-title">🎓 행정안전부 공공 AI역량 교육과정 진행 현황 (8월말 기준)</h3>
+        <h3 class="detail-section-title" id="education-title">🎓 행정안전부 공공 AI역량 교육과정 진행 현황</h3>
         <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
           공단 임직원의 AI 리더십 및 실무 역량 강화를 위해 NIA 연계 교육과정에 적극 동참하고 있습니다.
         </p>
@@ -1296,3 +1313,4 @@
   <script src="dashboard.js"></script>
 </body>
 </html>
+
