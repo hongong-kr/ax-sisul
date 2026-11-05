@@ -7,7 +7,7 @@ function cellToText(cell){if(!cell||cell.v==null)return '';const v=String(cell.v
          데이터 수정은 구글 시트에서 하세요! (HTML을 다시 만들 필요 없음)
        ================================================================================= */
     const SHEET_ID = '1fpdq2TzIblWrIFVg5ArCaGtC0j9G8sdc29prleBCXuA';
-    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/edit';
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1n7tLCHLSl21RS5IvMfMpopttehl7ZCH0OsSYhVel-HE/edit';
     const SHEET_TABS = ['학계_총괄','설정','연혁','KPI','선순환체계','3대전략','로드맵','오픈랩_절차','오픈랩_선정과제','오픈랩_지원사항','대학파트너십','실증운영체계','윤리원칙','AI기본법','개인정보보호법','투명성이행절차','문화확산','외부거버넌스','교육현황'];
     let DASHBOARD_DATA = null;
     let lastGoodTabs = {};
