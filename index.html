@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' https://docs.google.com https://spreadsheets.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://docs.google.com https://spreadsheets.google.com; img-src 'self' data: blob:; object-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'self'">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no">
-  <title>서울시설공단 AI 전환 전략 대시보드 (실시간 시트 연동)</title>
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hongong-kr.github.io/ax-sisul" />
-  <meta property="og:title" content="서울시설공단 AI 전환 전략 대시보드" />
-  <meta property="og:description" content="AI전환추진단(TF). Since 2026" />
-  <meta property="og:image" content="https://hongong-kr.github.io/ax-sisul/og-image.png" />
+  <title>AI전환추진단 대시보드 · 시트 연동</title>
   
   <!-- Pretendard 폰트 불러오기 -->
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  
   
   <style>
     /* ==========================================
@@ -1011,8 +1007,148 @@
     }
   /* Academic collaboration progress, reviewed 2026-10-28 */
 .academic-story{font-size:.86rem;line-height:1.75;color:#334155;margin-bottom:18px}.academic-story h4,.academic-story p{margin:0}.academic-story-lead{border-left:3px solid #007ac3;background:#f0f7fc;padding:16px 18px;border-radius:0 8px 8px 0}.academic-story-kicker{display:block;font-size:.72rem;color:#0072b8;font-weight:700;margin-bottom:5px}.academic-story-lead h4{font-size:1.12rem;line-height:1.5;color:#123750;margin-bottom:9px;letter-spacing:-.3px}.academic-story-heading{font-size:.88rem;color:#18394e;margin:20px 0 12px!important}.academic-story-timeline{list-style:none;padding:0;margin:0;display:grid;gap:0}.academic-story-timeline li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px;padding:0 0 16px;position:relative}.academic-story-date{font-size:.74rem;font-weight:700;color:#52718c;padding-top:1px}.academic-story-timeline li>div{border-left:2px solid #d9e7f1;padding-left:14px;position:relative}.academic-story-timeline li>div:before{content:'';position:absolute;left:-5px;top:7px;width:8px;height:8px;background:#5d9cc8;border:2px solid #fff;border-radius:50%}.academic-story-timeline b{display:block;color:#1d3e56;font-size:.85rem;line-height:1.6}.academic-story-timeline p{font-size:.79rem;color:#526578;margin-top:4px}.academic-story-achieved>div{border-left-color:#87c6bc!important}.academic-story-achieved>div:before{background:#118579!important}.academic-story-achieved b{color:#08786a}.academic-story-changes{border:1px solid #e1e8ef;border-radius:8px;padding:0 13px}.academic-story-changes>div{padding:10px 0;border-bottom:1px solid #e8edf2}.academic-story-changes>div:last-child{border-bottom:0}.academic-story-changes span{display:block;font-size:.71rem;color:#627589;font-weight:700;margin-bottom:3px}.academic-story-changes p{font-size:.79rem}.academic-story-changes b{font-weight:600;color:#1a4d71}.academic-story-next{margin-top:16px;padding:13px 15px;background:#eaf6f3;border:1px solid #cfe7df;border-radius:8px}.academic-story-next>b{color:#146657;font-size:.81rem}.academic-story-next p{font-size:.79rem;color:#3c625c;margin-top:5px}.academic-story-sources{font-size:.69rem;color:#6b7d8d;margin-top:12px!important;line-height:1.7}.academic-story-sources a{color:#537894}.academic-representatives{display:grid;gap:7px;font-size:.81rem;margin-top:12px}.academic-story-button{display:inline-block;background:#007ac3;color:white!important;border-radius:7px;padding:10px 16px;text-decoration:none!important;font-weight:700;font-size:.85rem}@media(max-width:600px){.academic-story-timeline li{grid-template-columns:1fr;gap:5px;padding-bottom:18px}.academic-story-date{padding-left:14px}.academic-story-lead{padding:14px}.academic-story-lead h4{font-size:1.05rem}}
+
+/* Preserve the existing panels; keep each month's titles on one visual line. */
+.academic-report .ar-month-events{min-width:0}
+.academic-report .ar-month-item{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.academic-report .ar-queue-metric .ar-queue-list{list-style:disc;margin:12px 0 0;padding-left:19px;font-size:.8rem;line-height:1.65;overflow-wrap:anywhere;border:0}
+.academic-report .ar-queue-metric .ar-queue-list li{display:list-item;padding:0;border:0;font-size:inherit}
+.academic-report .ar-queue-metric .ar-queue-list li+li{margin-top:5px}
 </style>
-</head>
+<style>
+#academic-progress-card{min-width:0;align-self:start}
+.monthly-progress-card{min-width:0;align-self:start}
+#tab-external>.dashboard-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.academic-report .ar-report-layout{display:grid;gap:22px;align-items:start}
+.academic-report .ar-wide-layout{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+@media(max-width:900px){#tab-external>.dashboard-grid{grid-template-columns:1fr}.academic-report .ar-wide-layout{grid-template-columns:1fr}}
+.academic-report{color:#253e54;font-size:.84rem;line-height:1.65}
+.academic-report *{box-sizing:border-box}
+.academic-report h3,.academic-report h4,.academic-report p{margin:0}
+.academic-report .ar-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}
+.academic-report h3{font-size:1.1rem;color:#007ac3}
+.academic-report .ar-caption{font-size:.74rem;color:#718196;margin-top:4px}
+.academic-report .ar-demo{display:inline-block;flex-shrink:0;border:1px solid #e8d4aa;background:#fff8e9;color:#88600d;border-radius:5px;padding:3px 8px;font-size:.69rem;font-weight:700}
+.academic-report .ar-section-title{font-size:.88rem;color:#183c59;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:22px 0 12px}
+.academic-report .ar-count{font-size:.68rem;background:#eaf2fc;color:#2d629e;border-radius:20px;padding:2px 7px}
+.academic-report .ar-timeline{list-style:none;margin:0;padding:0}
+.academic-report .ar-timeline li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:13px;padding-bottom:14px}
+.academic-report .ar-date{font-size:.72rem;color:#647b90;padding-top:2px;font-variant-numeric:tabular-nums}
+.academic-report .ar-event{position:relative;border-left:2px solid #dce7f1;padding-left:15px;font-size:.8rem}
+.academic-report .ar-event:before{content:'';position:absolute;width:7px;height:7px;background:#7ca5c7;border:2px solid white;border-radius:50%;left:-5px;top:5px}
+.academic-report .ar-timeline .ar-new .ar-event{border-color:#9dd9c4;color:#136b52}
+.academic-report .ar-new .ar-event:before{background:#269a76}
+.academic-report .ar-mini{display:inline-block;font-size:.65rem;color:#16815f;background:#e8f7ef;border-radius:3px;padding:1px 5px;margin-left:5px;vertical-align:middle}
+.academic-report .ar-progress{min-width:0;border:1px solid #dce4ed;border-radius:12px;background:#f6f8fb;padding:19px}
+.academic-report .ar-changes{min-width:0;border:1px solid #abc9e9;border-top:4px solid #2275b9;border-radius:12px;background:#edf5fe;padding:17px 19px 19px;margin:0}
+.academic-report .ar-panel-head{display:flex;gap:10px;align-items:flex-start;margin-bottom:15px}
+.academic-report .ar-panel-number{display:grid;place-items:center;width:30px;height:30px;flex-shrink:0;border-radius:7px;background:#e2e8f0;color:#536a82;font-size:.75rem;font-weight:800}
+.academic-report .ar-changes .ar-panel-number{background:#2275b9;color:white}
+.academic-report .ar-panel-head .ar-section-title{margin:0;font-size:.94rem;font-weight:800;color:#293e52}
+.academic-report .ar-changes .ar-section-title{color:#145b94}
+.academic-report .ar-panel-description{font-size:.71rem;color:#63788e;margin-top:3px}
+.academic-report .ar-period{font-size:.72rem;color:#536f8b;margin-top:0;margin-bottom:12px}
+.academic-report .ar-summary{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.academic-report .ar-summary span{border-radius:5px;background:#f2f5f9;padding:4px 9px;font-size:.71rem;color:#536b80}
+.academic-report .ar-change{border:1px solid #dfe8f1;border-radius:8px;margin-bottom:10px;background:white;overflow:hidden}
+.academic-report .ar-change>summary{list-style:none;cursor:pointer;padding:13px 14px;display:flex;align-items:center;gap:9px}
+.academic-report .ar-change>summary::-webkit-details-marker{display:none}
+.academic-report .ar-change>summary:after{content:'＋';margin-left:auto;color:#8496a8;font-size:16px}
+.academic-report .ar-change[open]>summary:after{content:'−'}
+.academic-report .ar-kind{border-radius:4px;font-size:.67rem;padding:2px 6px;flex-shrink:0;font-weight:700}
+.academic-report .ar-kind.new{color:#117553;background:#e8f6ef}
+.academic-report .ar-kind.progress{color:#2467aa;background:#eaf2fd}
+.academic-report .ar-summary .ar-kind.new{color:#117553;background:#e8f6ef}
+.academic-report .ar-summary .ar-kind.progress{color:#2467aa;background:#eaf2fd}
+.academic-report .ar-jump{border:1px solid #d2e2f4;font-family:inherit;font-weight:600;cursor:pointer;padding:5px 9px;margin:0 0 16px;border-radius:5px}
+.academic-report .ar-jump:hover{background:#dceafa}
+.academic-report .ar-jump:focus-visible,.academic-report summary:focus-visible{outline:2px solid #007ac3;outline-offset:3px}
+.academic-report .ar-history{border-top:1px solid #e1e9f1;margin:0 0 12px}
+.academic-report .ar-history>summary{cursor:pointer;color:#536f8b;font-size:.74rem;padding:10px 0;display:flex;justify-content:space-between;list-style:none}
+.academic-report .ar-history>summary::-webkit-details-marker{display:none}
+.academic-report .ar-history[open]>summary span{transform:rotate(180deg)}
+.academic-report .ar-history>.ar-timeline{padding-top:8px}
+.academic-report .ar-changes{scroll-margin-top:24px}
+.academic-report .ar-empty{border:1px solid #dce6ef;background:#f6f9fc;border-radius:8px;padding:19px 18px;line-height:1.9;color:#536a7d}
+.academic-report .ar-empty>strong{display:block;color:#35576e;font-size:.9rem;margin-bottom:6px}
+.academic-report .ar-empty>p{font-size:.78rem}
+.academic-report .ar-empty-action{border-top:1px solid #dfe8f0;margin-top:14px;padding-top:12px;font-size:.8rem}
+.academic-report .ar-empty .ar-note{font-size:.69rem;margin-top:9px}
+.academic-report .ar-pending{background:#fffaf1;border-color:#efdfbd}
+.academic-report .ar-title{font-size:.8rem;font-weight:700}
+.academic-report .ar-change-body{padding:0 14px 14px}
+.academic-report .ar-compare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.academic-report .ar-before,.academic-report .ar-after{padding:10px 11px;border-radius:5px;background:#f5f7fa;font-size:.76rem}
+.academic-report .ar-after{background:#edf6ff;color:#205887}
+.academic-report .ar-label{display:block;font-size:.65rem;color:#77879a;margin-bottom:4px;font-weight:600}
+.academic-report .ar-diff{margin-top:10px;border-left:2px solid #86afd5;padding-left:10px;font-size:.77rem;line-height:1.8}
+.academic-report .ar-note{font-size:.68rem;color:#7a899a;margin-top:9px}
+.academic-report .ar-bottom{border-top:1px solid #e0e9f1;padding-top:15px;margin-top:17px}
+.academic-report .ar-link{display:block;text-align:center;border-radius:6px;background:#007ac3;color:white;text-decoration:none;padding:11px 14px;font-weight:700;font-size:.82rem}
+.academic-report .ar-footnote{font-size:.69rem;color:#75869a;margin-top:9px;line-height:1.65}
+.academic-report .ar-review-queue{border:1px solid #e2c38a;border-top:3px solid #bd852d;background:#fffaf0;border-radius:8px;margin-bottom:18px;overflow:hidden}
+.academic-report .ar-review-queue>summary{display:flex;align-items:center;gap:9px;list-style:none;cursor:pointer;padding:14px}
+.academic-report .ar-review-queue>summary::-webkit-details-marker{display:none}
+.academic-report .ar-queue-label{flex-shrink:0;border-radius:4px;background:#f3e5c7;color:#825710;padding:3px 6px;font-size:.66rem;font-weight:700}
+.academic-report .ar-queue-title{font-weight:750;font-size:.94rem;color:#654718}
+.academic-report .ar-queue-title b{font-size:1.22rem;font-variant-numeric:tabular-nums;margin-left:3px}
+.academic-report .ar-queue-toggle{margin-left:auto;color:#927141;font-size:17px}
+.academic-report .ar-review-queue[open] .ar-queue-toggle{transform:rotate(180deg)}
+.academic-report .ar-queue-body{padding:0 14px 14px}
+.academic-report .ar-queue-breakdown{font-size:.79rem;color:#755c37}
+.academic-report .ar-queue-schedule{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.academic-report .ar-queue-schedule span{font-size:.67rem;color:#7a684c;background:white;border:1px solid #e9ddc7;border-radius:4px;padding:2px 6px}
+.academic-report .ar-queue-list{list-style:none;margin:0;padding:0;border-top:1px solid #eadfc9}
+.academic-report .ar-queue-list li{display:grid;grid-template-columns:68px minmax(0,1fr);gap:8px;border-bottom:1px solid #eee4d1;padding:9px 0;font-size:.76rem;color:#5e5444}
+.academic-report .ar-queue-date{font-size:.69rem;color:#927c5f;white-space:nowrap;padding-top:2px}
+.academic-report .ar-queue-note{color:#7b6542;font-size:.7rem;margin-top:11px;line-height:1.8}
+.academic-report .ar-month-divider{font-size:.78rem;font-weight:750;color:#315c80;border-top:1px solid #cddff0;padding-top:13px;margin-bottom:10px}
+.academic-report .ar-month-divider span{display:block;font-size:.68rem;font-weight:400;color:#6a8093;margin-top:2px}
+@media(max-width:600px){.academic-report .ar-heading{flex-wrap:wrap}.academic-report .ar-timeline li{grid-template-columns:63px minmax(0,1fr);gap:7px}.academic-report .ar-compare{grid-template-columns:1fr}.academic-report .ar-progress,.academic-report .ar-changes{padding-left:13px;padding-right:13px}.academic-report .ar-panel-head .ar-section-title{font-size:.86rem}}
+
+</style>
+<style>
+.academic-report .ar-month-audit{border-top:1px solid #bdd2e6;margin-top:18px;padding-top:12px}
+.academic-report .ar-month-audit>summary{font-size:.8rem;font-weight:700;color:#2f628c;cursor:pointer}
+.academic-report .ar-audit-group{border:1px solid #d3e0ed;border-radius:6px;background:white;margin-top:10px;padding:10px 12px}
+.academic-report .ar-audit-group>summary{font-size:.77rem;cursor:pointer;font-weight:650;color:#294d6c;overflow-wrap:anywhere}
+.academic-report .ar-audit-group>summary>span{font-size:.68rem;color:#6f8497;font-weight:400}
+.academic-report .ar-audit-group dl{margin:10px 0;font-size:.75rem;line-height:1.8}
+.academic-report .ar-audit-group dt{font-weight:650;margin-top:9px;color:#3a6488}
+.academic-report .ar-audit-group dd{margin:4px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.academic-report .ar-intermediate{border-top:1px solid #dfe8f0;padding-top:9px;margin-top:12px;font-size:.73rem}
+.academic-report .ar-intermediate>summary{cursor:pointer;color:#617d96}
+
+</style><style>
+#tab-dashboard .icon{width:19px;height:19px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+#tab-dashboard .role-intro h1,#tab-dashboard .role-intro p,#tab-dashboard .role-message{margin-bottom:0}
+#tab-dashboard .role-intro{text-align:center;margin:8px 0 31px}#tab-dashboard .role-overline{font-size:14px;color:#7a8c9f;letter-spacing:.5px;margin-bottom:12px}#tab-dashboard .role-intro h1{font-size:29px;font-weight:750;letter-spacing:-1px;color:#213e5d}#tab-dashboard .role-intro h1 span{color:#2466bc}#tab-dashboard .role-intro>p{color:#72849a;font-size:16px;line-height:1.8;margin-top:12px}#tab-dashboard .role-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}#tab-dashboard .role-panel{--role:#2e6fbe;--pale:#eff5fd;--edge:#dae7f7;border:1px solid #dce5ee;background:#fff;border-radius:16px;padding:25px 25px 0;display:flex;flex-direction:column;min-width:0;box-shadow:0 3px 12px #213c5a03;transition:box-shadow .2s,border-color .2s}#tab-dashboard .role-panel:hover{border-color:var(--edge);box-shadow:0 8px 24px #213c5a09}#tab-dashboard .foundation-panel{--role:#267d77;--pale:#edf6f3;--edge:#d1e7df}#tab-dashboard .spread-panel{--role:#a2783f;--pale:#faf5ec;--edge:#eddfc7}#tab-dashboard .role-label{font-size:14px;color:var(--role);font-weight:650;letter-spacing:.5px;margin-bottom:9px}#tab-dashboard .role-panel h2{font-size:25px;color:#243f5d;letter-spacing:-1px;font-weight:750;margin:0;line-height:1.5;white-space:nowrap}#tab-dashboard .role-art{height:242px;position:relative;margin:19px -8px 16px;background:radial-gradient(ellipse at center,var(--pale),transparent 72%);isolation:isolate;flex-shrink:0}#tab-dashboard .art-wires{position:absolute;width:100%;height:100%;inset:0;z-index:-1;fill:none;stroke:#adc9ed;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}#tab-dashboard .art-wires circle{fill:#77a8e0;stroke:#fff;stroke-width:2}#tab-dashboard .art-node{background:#fff;border:1px solid #dae6f5;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;color:#47729f;font-weight:550;box-shadow:0 4px 12px #376da008}#tab-dashboard .source-node{position:absolute;width:46%;height:55px;top:18px;flex-direction:column;gap:4px}#tab-dashboard .academic-node{left:0}#tab-dashboard .company-node{right:0}#tab-dashboard .source-node .icon{width:18px;height:18px;color:#78a1d0}#tab-dashboard .art-hub{background:#2369b7;border:5px solid #e8f1fc;border-radius:14px;color:#fff;position:absolute;left:50%;top:85px;transform:translateX(-50%);width:103px;height:69px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:16px;font-weight:600;box-shadow:0 6px 14px #28619e12}#tab-dashboard .art-hub span{display:block;font-size:13px;color:#cce1fa;margin-top:3px;font-weight:400}#tab-dashboard .field-node{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);height:43px;width:69%;background:#e9f2fe;font-size:15px;border-color:#d4e4f8}#tab-dashboard .field-node .icon{width:18px;height:18px}#tab-dashboard .foundation-shield{position:absolute;top:9px;left:50%;transform:translateX(-50%);height:58px;width:58px;border-radius:18px;background:#e4f1eb;display:grid;place-items:center;color:#3e8e78;border:1px solid #d6e9df}#tab-dashboard .foundation-shield .icon{height:33px;width:33px;stroke-width:1.4}#tab-dashboard .foundation-roof{position:absolute;left:0;right:0;top:86px;height:45px;border:1px solid #cfe2d8;background:#edf6f1;display:grid;place-items:center;border-radius:8px;color:#377660;font-size:16px;font-weight:600;box-shadow:0 4px 8px #2c785807;z-index:1}#tab-dashboard .foundation-columns{position:absolute;top:128px;left:5%;right:5%;height:76px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}#tab-dashboard .foundation-columns>div{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;background:#fff;border:1px solid #dce9e2;color:#5b8572;font-size:14px;border-radius:0 0 5px 5px}#tab-dashboard .foundation-columns .icon{width:19px;height:19px;color:#81ab95}#tab-dashboard .foundation-base{position:absolute;top:207px;left:0;right:0;height:14px;background:#e0eee5;border:1px solid #d2e5d9;border-radius:4px}#tab-dashboard .spread-art{background:radial-gradient(ellipse at center,#fcf4e4,transparent 72%)}#tab-dashboard .spread-ring{position:absolute;border:1px solid #ecddbf;border-radius:50%;left:50%;top:107px;transform:translate(-50%,-50%);z-index:-1}#tab-dashboard .ring-a{width:127px;height:127px}#tab-dashboard .ring-b{width:182px;height:182px}#tab-dashboard .ring-c{width:232px;height:211px;border-style:dashed;border-color:#eee4d2}#tab-dashboard .spread-center{position:absolute;top:65px;left:50%;transform:translateX(-50%);width:86px;height:86px;border-radius:50%;background:#fcf0d9;border:1px solid #e7d1a5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:#9f793c;font-size:14px;box-shadow:0 5px 13px #b5893c09}#tab-dashboard .spread-center .icon{width:27px;height:27px;stroke-width:1.4}#tab-dashboard .spread-node{background:#fff;border:1px solid #eadfc9;color:#9f845b;border-radius:50%;width:47px;height:47px;display:grid;place-items:center;font-size:14px;position:absolute;box-shadow:0 3px 12px #8f6b2d05}#tab-dashboard .spread-learn{top:38px;left:9%}#tab-dashboard .spread-try{top:38px;right:9%}#tab-dashboard .spread-use{top:166px;left:50%;transform:translateX(-50%)}#tab-dashboard .spread-caption{position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:14px;color:#a48b63}#tab-dashboard .role-message{font-size:17px;color:#46617e;line-height:1.9;letter-spacing:-.5px;padding-top:4px;min-height:72px}#tab-dashboard .role-scope{font-size:14px;line-height:1.85;color:#7b8c9e;display:flex;gap:3px 10px;flex-wrap:wrap;margin:18px 0 23px;min-height:53px;align-content:start}#tab-dashboard .role-scope>span+span:before{content:'·';margin-right:10px;color:#b4c1ce}#tab-dashboard .role-enter{border:0;background:none;border-top:1px solid #e5ebf2;width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 0;color:var(--role);font-size:15px;font-weight:600;text-align:left;margin-top:auto}#tab-dashboard .role-enter .icon{height:18px;width:18px}#tab-dashboard .role-enter:hover{color:#24415e}#tab-dashboard .role-overview~.footnote{margin-top:23px}
+@media(max-width:1100px){#tab-dashboard .role-grid{gap:16px}#tab-dashboard .role-panel{padding:23px 20px 0}#tab-dashboard .role-panel h2{font-size:22px}#tab-dashboard .role-message{font-size:16px}#tab-dashboard .role-art{margin-left:-5px;margin-right:-5px}#tab-dashboard .foundation-columns{gap:8px;left:2%;right:2%}#tab-dashboard .foundation-columns>div{font-size:14px}#tab-dashboard .foundation-roof{font-size:15px}#tab-dashboard .source-node{width:47%;font-size:14px}#tab-dashboard .source-node .icon{display:none}#tab-dashboard .role-intro h1{font-size:27px}#tab-dashboard .role-intro>p{font-size:15px}#tab-dashboard .role-scope{font-size:14px;min-height:78px}#tab-dashboard .spread-learn{left:1%}#tab-dashboard .spread-try{right:1%}}
+@media(max-width:900px){#tab-dashboard .role-grid{grid-template-columns:1fr}#tab-dashboard .role-intro{margin:0 0 24px;text-align:left}#tab-dashboard .role-intro h1{font-size:25px;line-height:1.6}#tab-dashboard .role-intro>p{font-size:15px}#tab-dashboard .role-panel{padding:24px 25px 0}#tab-dashboard .role-panel h2{font-size:25px}#tab-dashboard .role-art{max-width:330px;width:100%;align-self:center;margin:15px 0 12px}#tab-dashboard .role-message{font-size:17px;min-height:0}#tab-dashboard .role-scope{min-height:0;margin-bottom:22px}#tab-dashboard .source-node .icon{display:block}}
+
+
+
+</style><style>
+.academic-report .ar-timeline li.ar-updated{background:#e9f3ff;border-left:3px solid #2477be;border-radius:6px;padding:12px 12px 12px 10px;margin-left:-10px}
+.academic-report .ar-timeline li.ar-updated .ar-date{color:#1768ab;font-weight:800}
+.academic-report .ar-timeline li.ar-updated .ar-event{color:#234f78}
+.academic-report .ar-review-queue.ar-queue-metric{padding:22px 24px;background:#fff;border:1px solid #dce5ee;border-top:3px solid #bd841d;border-radius:9px;margin:0 0 18px}
+.academic-report .ar-queue-metric-label{font-size:.88rem;font-weight:700;color:#74501c}
+.academic-report .ar-queue-metric-value{display:flex;gap:6px;align-items:baseline;margin-top:12px;color:#a16b17}
+.academic-report .ar-queue-metric-value strong{font-size:2.5rem;line-height:1.2;font-weight:800}
+.academic-report .ar-queue-metric-value span{font-size:1rem;color:#7b899d}
+.academic-report .ar-case-facts{margin:12px 0 0}
+.academic-report .ar-case-facts dt{font-size:.72rem;font-weight:750;margin-top:13px;color:#4b6580}
+.academic-report .ar-case-facts dt:first-child{margin-top:0}
+.academic-report .ar-case-facts dd{margin:5px 0 0;font-size:.78rem;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.academic-report .ar-month-item+.ar-month-item{margin-top:8px}
+.academic-report .ar-case-audit{margin-top:15px;padding-top:11px}
+.academic-report .ar-case-audit>summary{padding:4px 0;display:list-item;list-style:disclosure-closed}
+.academic-report .ar-case-audit[open]>summary{list-style:disclosure-open}
+.academic-report .ar-case-audit>summary:after{content:none}
+@media(max-width:1100px) and (min-width:769px){#tab-dashboard .role-panel h2{font-size:clamp(16px,2vw,22px)}}
+
+</style></head>
 <body>
 
   <div class="container">
@@ -1023,28 +1159,7 @@
     </header>
 
     <!-- Live Bar: Google Sheets 실시간 연동 상태 -->
-    <div class="live-bar">
-      <span class="live-dot loading" id="live-dot"></span>
-      <span id="live-status">시트에서 불러오는 중...</span>
-      <span class="live-spacer"></span>
-      <a class="live-link" id="sheet-open-link" href="https://docs.google.com/spreadsheets/d/1n7tLCHLSl21RS5IvMfMpopttehl7ZCH0OsSYhVel-HE/edit" target="_blank">📊 관리실 열기</a>
-      <button class="live-refresh" onclick="refreshDashboard()">🔄 새로고침</button>
-    </div>
-
-    <div id="loading-overlay">
-      <div class="live-spinner"></div>
-      <span>시트에서 데이터를 불러오는 중입니다...</span>
-    </div>
-
-    <div id="error-box">
-      <div style="font-size:1.1rem; font-weight:800; color:#dc2626; margin-bottom:0.5rem;">⚠️ 데이터를 불러오지 못했습니다</div>
-      <div id="error-msg" style="font-size:0.88rem; color:#7f1d1d; margin-bottom:1rem;"></div>
-      <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.2rem;">대시보드 반영 데이터의 연결 상태를 확인해 주세요.</div>
-      <button class="live-refresh" onclick="refreshDashboard()">다시 시도</button>
-    </div>
-
-
-    <!-- KPI Summary Section -->
+    <div class="live-bar"><span id="connection-status" role="status">구글 시트 연결 준비 중</span><span class="live-spacer"></span><button id="refresh-data" class="live-refresh">새로고침</button><a class="live-link" id="sheet-open-link" href="https://docs.google.com/spreadsheets/d/1n7tLCHLSl21RS5IvMfMpopttehl7ZCH0OsSYhVel-HE/edit?gid=1191043719#gid=1191043719" target="_blank" rel="noopener">📊 데이터 시트 열기</a><a class="live-link" id="management-sheet-open-link" href="https://docs.google.com/spreadsheets/d/1n7tLCHLSl21RS5IvMfMpopttehl7ZCH0OsSYhVel-HE/edit?gid=1191043719#gid=1191043719" target="_blank" rel="noopener">📝 관리 시트 열기</a></div><p id="source-note" class="data-notice">기존 시트의 데이터를 읽기 전용으로 표시합니다.</p><!-- KPI Summary Section -->
     <section class="dashboard-grid dashboard-grid-4" id="kpi-container">
       <!-- Generated Dynamically by JS -->
     </section>
@@ -1059,33 +1174,42 @@
     </nav>
 
     <!-- TAB 1: 종합 대시보드 -->
-    <div id="tab-dashboard" class="tab-content active">
-      <div class="dashboard-grid dashboard-grid-3-2">
-        <!-- TF Summary info -->
-        <div class="glass-card tf-summary-card" id="tf-summary-container">
-          <!-- Generated Dynamically by JS -->
-        </div>
-
-        <!-- Ecosystem Circle Flow -->
-        <div class="ecosystem-container glass-card" style="grid-column: span 1;">
-          <h3 class="section-title">💡 AI 전환 선순환 실행체계</h3>
-          <div class="ecosystem-desc-top">
-            각 개별 추진 사업은 분리된 것이 아니라, <strong>기술 발굴 ➔ 거버넌스 검증 ➔ 사내 확산 ➔ R&D 고도화</strong>의 하나의 유기적인 연계 생태계로 연결됩니다.
-          </div>
-          <div class="ecosystem-grid" id="ecosystem-container">
-            <!-- Generated Dynamically by JS -->
-          </div>
-        </div>
-      </div>
-
-      <!-- Strategy Framework Map -->
-      <section class="glass-card strategy-map" style="margin-top: 2rem;">
-        <h3 class="section-title">🎯 AI 전환 3대 전략 체계</h3>
-        <div class="strategy-pillar-grid" id="strategy-pillars-container">
-          <!-- Generated Dynamically by JS -->
-        </div>
-      </section>
-    </div>
+    <div id="tab-dashboard" class="tab-content active"><section class="role-overview" id="overview" aria-label="종합현황">
+ <div class="role-intro"><h1>공단의 AI 전환을 위한 <span>세 가지 역할</span></h1><p>기술을 연결하고, 활용의 기준을 세우고, 조직으로 확산합니다.</p></div>
+ <div class="role-grid">
+  <article class="role-panel connect-panel" aria-labelledby="role-external-title">
+   <div class="role-label">연결</div><h2 id="role-external-title">외부 기술협업</h2>
+   <div class="role-art connect-art" role="img" aria-label="학계·연구기관과 민간기업의 기술을 추진단이 공단 현장에 연결하는 협력 구조">
+    <svg class="art-wires" viewBox="0 0 320 240" preserveAspectRatio="none" aria-hidden="true"><path d="M77 44 V70 Q77 95 120 103 M243 44 V70 Q243 95 200 103 M160 128V181"/><circle cx="160" cy="155" r="4"/></svg>
+    <div class="art-node source-node academic-node"><span data-icon="globe"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18"/></svg></span><span>학계·연구기관</span></div><div class="art-node source-node company-node"><span data-icon="spark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/></svg></span><span>민간기업</span></div>
+    <div class="art-hub">추진단<span>연결·조율</span></div><div class="art-node field-node"><span data-icon="overview"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg></span>공단 현장</div>
+   </div>
+   <p class="role-message">학계·민간의 기술과<br>공단의 현장을 연결합니다.</p>
+   <div class="role-scope"><span>학계 공동과제 발굴·기획</span><span>AI 오픈랩</span></div>
+   <button class="role-enter" type="button" onclick="switchTab('tab-external')">협업 내용 보기 <span data-icon="arrow"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+  </article>
+  <article class="role-panel foundation-panel" aria-labelledby="role-foundation-title">
+   <div class="role-label">기반</div><h2 id="role-foundation-title">내부기반·거버넌스</h2>
+   <div class="role-art foundation-art" role="img" aria-label="거버넌스, 법·제도 대응, 국제표준 검토가 안전하고 책임 있는 AI 활용을 뒷받침하는 기반 구조">
+    <div class="foundation-shield" data-icon="shield"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-8 9-8 9s-8-4-8-9V6zM8.5 12l2.5 2.5 4.5-5"/></svg></div><div class="foundation-roof">안전하고 책임 있는 AI</div>
+    <div class="foundation-columns"><div><span data-icon="shield"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-8 9-8 9s-8-4-8-9V6zM8.5 12l2.5 2.5 4.5-5"/></svg></span><span>거버넌스</span></div><div><span data-icon="document"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h7"/></svg></span><span>법·제도</span></div><div><span data-icon="globe"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18"/></svg></span><span>국제표준</span></div></div><div class="foundation-base"></div>
+   </div>
+   <p class="role-message">안전하고 책임 있는<br>AI 활용의 기준을 마련합니다.</p>
+   <div class="role-scope"><span>거버넌스</span><span>법·제도 대응</span><span>국제표준 검토</span></div>
+   <button class="role-enter" type="button" onclick="switchTab('tab-internal')">기반 마련 내용 보기 <span data-icon="arrow"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+  </article>
+  <article class="role-panel spread-panel" aria-labelledby="role-culture-title">
+   <div class="role-label">확산</div><h2 id="role-culture-title">문화확산·생태계</h2>
+   <div class="role-art spread-art" role="img" aria-label="직원의 학습과 시도, 경험 공유가 조직의 일상적 AI 활용으로 확산하는 구조">
+    <div class="spread-ring ring-a"></div><div class="spread-ring ring-b"></div><div class="spread-ring ring-c"></div><div class="spread-center"><span data-icon="spark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/></svg></span><span>경험 공유</span></div>
+    <div class="spread-node spread-learn">학습</div><div class="spread-node spread-try">시도</div><div class="spread-node spread-use">활용</div><div class="spread-caption">직원에서 조직으로</div>
+   </div>
+   <p class="role-message">직원의 경험과 학습을<br>일상적 AI 활용으로 넓힙니다.</p>
+   <div class="role-scope"><span>공감·실험 콘텐츠</span><span>교육·인증 연계</span></div>
+   <button class="role-enter" type="button" onclick="switchTab('tab-culture')">확산 활동 보기 <span data-icon="arrow"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+  </article>
+ </div>
+</section></div>
 
     <!-- TAB 2: 통합 로드맵 -->
     <div id="tab-roadmap" class="tab-content">
@@ -1101,206 +1225,19 @@
     <!-- TAB 3: 외부 기술협업 -->
     <div id="tab-external" class="tab-content">
       <div class="dashboard-grid dashboard-grid-2-3">
-        <!-- Open Lab Process -->
-        <div class="glass-card">
-          <h3 class="detail-section-title">🧪 AI 오픈랩(Open Lab) 운영 <a href="https://sisul.or.kr/ai" style="text-decoration: none;" target=_blank>🔗</a></h3>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.2rem;">
-            민간 기업의 AI 기술을 공단 인프라에 직접 테스트하는 상시 개방형 테스트베드 플랫폼입니다.
-          </p>
-          
-          <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:0.5rem; color:var(--accent-1);">운영 단계 및 절차</h4>
-          <div style="display:flex; flex-direction:column; gap:0.8rem; margin-bottom:1.5rem;" id="openlab-process-container">
-            <!-- Generated Dynamically by JS -->
-          </div>
-
-          <!-- AI 오픈랩 실증 적격 선정 과제 (7월 선정 내역) -->
-          <h4 style="font-size:0.9rem; font-weight:700; margin-top:1.5rem; margin-bottom:0.5rem; color:var(--accent-1);">🏆 AI 오픈랩 선정과제 및 추진현황</h4>
-          <div style="display:flex; flex-direction:column; gap:0.8rem; margin-bottom:1.5rem;" id="openlab-selected-container">
-            <!-- Generated Dynamically by JS -->
-          </div>
-
-          <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:0.5rem; color:var(--accent-1);">민간기업 주요 지원사항</h4>
-          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.4rem; padding-left:0.2rem;" id="openlab-support-container">
-            <!-- Generated Dynamically by JS -->
-          </ul>
-        </div>
-
-<div class="glass-card" id="academic-progress-card"><h3 class="detail-section-title">🏫 학계협력 · 추진경과와 실행방향</h3><div id="academic-progress-live"><section class="academic-story" aria-label="학계협력 추진경과">
-  <div class="academic-story-lead"><span class="academic-story-kicker">일하는 방식의 변화</span><h4>기다리는 협력에서,<br>먼저 찾아가는 기술협력으로</h4><p>자체 확보가 어려운 AI 전문기술을 찾아 공단이 먼저 협력을 제안했습니다. 연구진의 기술과 공단의 현장·데이터·운영경험을 결합해 공동연구와 국가 R&D로 이어지는 협력 경로를 만들고 있습니다.</p></div>
-  <h4 class="academic-story-heading">학계협력 추진경과</h4>
-  <ol class="academic-story-timeline">
-    <li><span class="academic-story-date">2026.3.25.</span><div><b>전국 대학·산학협력단 290개소에 직접 제안</b><p>AI 연구분야와 공단 사업의 접점을 분석하고, 공단 인프라 기반 맞춤형 소개자료와 협력 제안서를 발송했습니다.</p></div></li>
-    <li><span class="academic-story-date">2026.4월</span><div><b>9개 대학·교수 15명 방문 협의</b><p>로봇·모빌리티, 영상 AI, 시설관리 등 적용 가능 기술을 탐색하고 실증·공동연구·R&D 참여 방향을 논의했습니다.</p></div></li>
-    <li><span class="academic-story-date">2026.7~9월</span><div><b>협력 논의를 실제 공모·기획으로 연결</b><p>경희대 순찰로봇은 미선정, 동국대·한양대 일부 기획은 미지원으로 종료됐습니다. 공모 전 공동기획과 역할분담을 준비할 필요를 확인했습니다.</p></div></li>
-    <li class="academic-story-achieved"><span class="academic-story-date">2026.9.30.</span><div><b>한양대 제설로봇 국가 R&D 최종 선정</b><p>폭설 대응 반자율주행 제설로봇 개발·실증 과제 선정. 국비 연구비 9억원은 전체 연구과제 규모이며, 현장 실증은 향후 추진 단계입니다.</p></div></li>
-  </ol>
-  <h4 class="academic-story-heading">교류를 넘어 과제 중심의 협력으로</h4>
-  <div class="academic-story-changes">
-    <div><span>협력의 출발점</span><p>학계 보유기술 탐색 <b>→ 공단 현장문제와 맞춤과제 발굴</b></p></div>
-    <div><span>협력대상 선정</span><p>회신·면담 중심 <b>→ 전문성·R&D 경험에 따른 연구진 선별</b></p></div>
-    <div><span>R&D 준비방식</span><p>공모 발생 후 대응 <b>→ 공모 전 개발내용·실증범위·역할 공동기획</b></p></div>
-  </div>
-  <div class="academic-story-next"><b>현재 이어갈 일 · 10.28. 기준</b><p>선정된 제설로봇의 실증 후보지와 운영자료를 구체화하고, 한양대 MOU의 협력범위·역할·일정을 협의합니다. 분야별 대표교수와는 현장수요에 맞는 후속과제를 발굴해 공동기획·검증으로 연결합니다.</p></div>
-  <p class="academic-story-sources">근거: 9.23. 중장기전략 · 학계협력 / 10.26. 이사회 보고 · 협력방식 전환<br>선정·협약 현황은 10.1. 결과보고와 10.28. 협약계획안으로 보완했습니다.</p>
-</section></div><a class="academic-story-button" href="university.html" onclick="openUniversityDashboard(event)">학계협력 실행 대시보드 열기 →</a><details style="margin-top:16px"><summary style="font-size:.8rem;cursor:pointer;color:#536b80">5개 기술분야 대표교수 보기</summary><div class="academic-representatives"><div>영상 AI·컴퓨터비전　KAIST 김승룡</div><div>로봇·자율시스템　한양대 강창묵</div><div>AIoT·엣지 AI　서울대 이창건</div><div>AI 학습데이터·신뢰성　연세대 김지응</div><div>지능형 에이전트　동국대 성연식</div></div></details><details style="margin-top:13px"><summary style="font-size:.8rem;cursor:pointer;color:#536b80">기존 시트의 대학별 파트너십 참고</summary><div class="univ-grid" id="univ-partnerships-container" style="margin-top:12px"></div></details></div>
+        <div class="glass-card monthly-progress-card" id="openlab-progress-card"></div>
+        <div class="glass-card" id="academic-progress-card"></div>
       </div>
     </div>
-
     <!-- TAB 4: 내부기반·거버넌스 -->
     <div id="tab-internal" class="tab-content">
-      <div class="glass-card" style="margin-bottom: 2rem;">
-        <h3 class="detail-section-title">🛡️ 공단형 AI 윤리 7대 원칙</h3>
-        <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.2rem;">
-          시민, 행정, 기술 3대 관점의 기준을 적용하여 기획부터 사후 관리까지 책임성 있는 공공 AI를 지향합니다.
-        </p>
-        <div class="ethics-grid" id="ethics-container">
-          <!-- Generated Dynamically by JS -->
-        </div>
-      </div>
-
-      <div class="dashboard-grid dashboard-grid-3-2">
-        <!-- Law & Compliance -->
-        <div class="glass-card">
-          <h3 class="detail-section-title">⚖️ 인공지능기본법 및 개인정보보호법 선제 대응</h3>
-          <div style="display:flex; flex-direction:column; gap:1.2rem;">
-            
-            <div>
-              <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:0.5rem; color:var(--accent-2);">투명성 및 고영향 AI 의무대응 (인공지능기본법)</h4>
-              <div class="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th style="width: 150px;">구분</th>
-                      <th style="width: 180px;">적용 범위</th>
-                      <th>핵심 이행사항 및 의무내용</th>
-                    </tr>
-                  </thead>
-                  <tbody id="law-act-container">
-                    <!-- Generated Dynamically by JS -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div>
-              <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:0.4rem; color:var(--accent-2);" id="privacy-title-container">개인정보보호법 (자동화된 결정권)</h4>
-              <div class="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th style="width: 150px;">권리 종류</th>
-                      <th>세부 권리 내용 및 조치 의무</th>
-                    </tr>
-                  </thead>
-                  <tbody id="privacy-act-container">
-                    <!-- Generated Dynamically by JS -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Compliance Process & Operational Guide -->
-        <div class="glass-card">
-          <h3 class="detail-section-title">📋 AI 사업 단계별 투명성 이행 절차</h3>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.5rem;">
-            외부 자문위원회 피드백을 기반으로 사업 발주부터 완공 검수 단계까지 위험 요소를 필터링합니다.
-          </p>
-          <div class="compliance-timeline" id="compliance-process-container">
-            <!-- Generated Dynamically by JS -->
-          </div>
-
-          <!-- AI 실증협업 운영체계 주요 내용 가이드 테이블 -->
-          <div style="margin-top: 1.8rem; padding: 1.2rem; background: rgba(0, 122, 195, 0.03); border: 1px solid rgba(0, 122, 195, 0.15); border-left: 5px solid var(--primary); border-radius: 0 8px 8px 0;">
-            <strong style="font-size: 0.9rem; color: var(--primary); display: block; margin-bottom: 0.8rem;">🛡️ AI 실증협업 운영체계 주요 내용 (기준·지침)</strong>
-            <div class="table-container" style="margin-bottom: 0;">
-              <table style="font-size: 0.82rem;">
-                <thead>
-                  <tr>
-                    <th style="width: 120px; padding: 0.5rem 0.8rem;">구분</th>
-                    <th style="padding: 0.5rem 0.8rem;">세부 가이드라인 및 조치사항</th>
-                  </tr>
-                </thead>
-                <tbody id="verification-guide-container">
-                  <!-- Generated Dynamically by JS -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div style="margin-top: 1.2rem; padding: 1rem; background: rgba(0, 122, 195, 0.05); border-left: 3px solid var(--primary); border-radius: 0 8px 8px 0; font-size: 0.82rem;">
-            <strong>💡 ISO 42001 (AI 경영시스템) 표준 도입 검토</strong><br>
-            향후 내부 거버넌스 체계의 신뢰성과 안전성을 국제 규격에 맞춰 인증받는 중장기 과제 준비중
-          </div>
-
-        </div>
-      </div>
+      <div class="glass-card monthly-progress-card" id="governance-progress-card"></div>
     </div>
-
     <!-- TAB 5: 문화확산·생태계 -->
     <div id="tab-culture" class="tab-content">
-      <div class="dashboard-grid dashboard-grid-2-3">
-        <!-- Culture Campaigns -->
-        <div class="glass-card">
-          <h3 class="detail-section-title">🌱 전사 AI 조직문화 확산 콘텐츠</h3>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.5rem;">
-            전 직원이 주저 없이 시도하고 배우는 'AI 실험실' 정서 형성을 지향합니다.
-          </p>
-          <div class="culture-card-grid" id="culture-campaigns-container">
-            <!-- Generated Dynamically by JS -->
-          </div>
-        </div>
-
-        <!-- Governance Stakeholders -->
-        <div class="glass-card">
-          <h3 class="detail-section-title">🔗 외부 거버넌스 연계 및 유관기관 협력체계</h3>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
-            중앙부처, 국가 연구기관, 서울시 산하 전문기관과의 다자간 협업 구조입니다.
-          </p>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th style="width:150px;">구분</th>
-                  <th style="width:180px;">기관명</th>
-                  <th>AI 관련 주요 역할 및 공단 연계사항</th>
-                </tr>
-              </thead>
-              <tbody id="stakeholders-container">
-                <!-- Generated Dynamically by JS -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- 행정안전부 공공 AI역량 교육과정 진행 현황 섹션 -->
-      <div class="glass-card" style="margin-top: 2rem;">
-        <h3 class="detail-section-title" id="education-title">🎓 행정안전부 공공 AI역량 교육과정 진행 현황</h3>
-        <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
-          공단 임직원의 AI 리더십 및 실무 역량 강화를 위해 NIA 연계 교육과정에 적극 동참하고 있습니다.
-        </p>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>과정명</th>
-                <th>교육일자</th>
-                <th>교육대상</th>
-                <th>정원</th>
-                <th>공단 참여</th>
-                <th>상태</th>
-              </tr>
-            </thead>
-            <tbody id="education-container">
-              <!-- Generated Dynamically by JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <div class="glass-card monthly-progress-card" id="culture-progress-card"></div>
     </div>
+    
 
     <!-- Footer Section -->
     <footer>
@@ -1309,12 +1246,15 @@
 
   </div>
 
-  <!-- =================================================================================
-       ★ Google Sheets 실시간 연동 — 데이터 수정은 구글 시트에서! (HTML 재생성 불필요) ★
-       ================================================================================= -->
+  <!-- 로컬 고정 자료로 표시하는 디자인 검토용 복사본 -->
   
 
-  <script src="university-data.js"></script>
-  <script src="dashboard.js"></script>
-</body>
+  
+  
+  
+  
+  
+  
+<script src="detail-pages.js"></script><script src="dashboard.js"></script></body>
 </html>
+
