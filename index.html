@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' https://docs.google.com https://spreadsheets.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://docs.google.com https://spreadsheets.google.com; img-src 'self' data: blob:; object-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' https://docs.google.com https://spreadsheets.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://docs.google.com https://spreadsheets.google.com; img-src 'self' data: blob:; object-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'self'">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no">
@@ -13,6 +13,7 @@
   <meta property="og:url" content="https://hongong-kr.github.io/ax-sisul/">
   
   <!-- Pretendard 폰트 불러오기 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   
   
   <style>
@@ -1164,7 +1165,7 @@
     </header>
 
     <!-- Live Bar: Google Sheets 실시간 연동 상태 -->
-    <div class="live-bar"><span id="connection-status" role="status">구글 시트 연결 준비 중</span><span class="live-spacer"></span><button id="refresh-data" class="live-refresh">새로고침</button><a class="live-link" id="sheet-open-link" href="https://docs.google.com/spreadsheets/d/1n7tLCHLSl21RS5IvMfMpopttehl7ZCH0OsSYhVel-HE/edit?gid=1191043719#gid=1191043719" target="_blank" rel="noopener">📊 데이터 시트 열기</a><a class="live-link" id="management-sheet-open-link" href="https://docs.google.com/spreadsheets/d/1n7tLCHLSl21RS5IvMfMpopttehl7ZCH0OsSYhVel-HE/edit?gid=1191043719#gid=1191043719" target="_blank" rel="noopener">📝 관리 시트 열기</a></div><p id="source-note" class="data-notice">기존 시트의 데이터를 읽기 전용으로 표시합니다.</p><!-- KPI Summary Section -->
+    <div class="live-bar"><span id="connection-status" role="status">구글 시트 연결 준비 중</span><span class="live-spacer"></span><button id="refresh-data" class="live-refresh">새로고침</button><a class="live-link" id="sheet-open-link" href="https://docs.google.com/spreadsheets/d/1fpdq2TzIblWrIFVg5ArCaGtC0j9G8sdc29prleBCXuA/edit" target="_blank" rel="noopener">📊 데이터 시트 열기</a><a class="live-link" id="management-sheet-open-link" href="https://docs.google.com/spreadsheets/d/1n7tLCHLSl21RS5IvMfMpopttehl7ZCH0OsSYhVel-HE/edit?gid=1191043719#gid=1191043719" target="_blank" rel="noopener">📝 관리 시트 열기</a></div><p id="source-note" class="data-notice">기존 시트의 데이터를 읽기 전용으로 표시합니다.</p><!-- KPI Summary Section -->
     <section class="dashboard-grid dashboard-grid-4" id="kpi-container">
       <!-- Generated Dynamically by JS -->
     </section>
